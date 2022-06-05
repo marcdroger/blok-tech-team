@@ -15,8 +15,14 @@ app.use(express.urlencoded({ extended: true }));
 //set templating to pug
 app.set('view engine', 'pug');
 
+//render index page
 app.get('/', (req, res) => {
   res.render('index');
+})
+
+//render 404 page
+app.use((req, res) => {
+  res.status(404).render('404');
 })
 
 //listen on port
