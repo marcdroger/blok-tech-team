@@ -21,7 +21,9 @@
     "pug": "^3.0.2"
   },
   "devDependencies": {
+    "eslint": "^8.17.0",
     "nodemon": "^2.0.16",
-    "eslint": "^8.17.0"
+    "stylelint": "^14.8.5",
+    "stylelint-config-recommended": "^7.0.0"
   }
 }
