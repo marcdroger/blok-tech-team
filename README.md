@@ -13,3 +13,5 @@ npm install
 # run project local op localhost:3000 met nodemon
 npm run dev
 ```
+
+als dat gelukt is, verander de `.env.sample` naar `.env`
