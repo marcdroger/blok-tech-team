@@ -14,4 +14,4 @@ npm install
 npm run dev
 ```
 
-als dat gelukt is, verander de `.env.sample` naar `.env`
+als dat gelukt is, verander de `.env.sample` naar `.env`. Daar komen de environment variables
