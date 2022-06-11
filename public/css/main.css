@@ -1,2 +1,8 @@
+/* reset */
 @import 'reset/reset.css';
+
+/* variables */
 @import 'variables/colors.css';
+
+/* layout */
+@import 'layout/typography.css';
