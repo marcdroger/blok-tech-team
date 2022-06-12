@@ -6,3 +6,5 @@
 
 /* layout */
 @import 'layout/typography.css';
+@import 'layout/nav.css';
+@import 'layout/footer.css';
