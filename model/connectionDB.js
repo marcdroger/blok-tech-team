@@ -1,2 +1,29 @@
 // hier komt connectie met database
 // model alerts view dat er iets is veranderd
+
+require('dotenv').config();
+
+const { MongoClient } = require('mongodb');
+
+//Environment variables
+const url = process.env.DB_URI;
+const databaseName = process.env.DB_DATABASE;
+const collection = process.env.DB_COLLECTION;
+
+let db;
+
+//connect to MongoDB database
+async function connectDB() {
+  const client = new MongoClient(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+  try {
+    await client.connect();
+    db = client.db(databaseName);
+  } catch (error) {
+    throw error;
+  }
+}
+
+module.exports = connectDB
