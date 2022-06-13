@@ -1,9 +1,11 @@
-require('dotenv').config;
-
-const port = process.env.PORT || 3000;
-
 const express = require('express');
 const app = express();
+
+const mainController = require('./controller/mainController');
+const mongoController = require('./model/connectionDB');
+
+//configure port for heroku & local
+const port = process.env.PORT || 3000;
 
 //use public folder
 app.use(express.static('public'));
@@ -16,10 +18,13 @@ app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'pug');
 
 // Route to mainController
-const mainController = require('./controller/mainController');
 app.use('/', mainController);
+app.use('/', mongoController);
 
 //listen on port
 app.listen(port, () => {
   console.log(`express running on port ${port}`);
+
+  //check if mongoDB connection succes
+  connectDB().then(console.log('Connected to MongoDB'));
 })
