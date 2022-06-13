@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 const mainController = require('./controller/mainController');
-const mongoController = require('./model/connectionDB');
+const connectDB = require('./model/connectionDB');
 
 //configure port for heroku & local
 const port = process.env.PORT || 3000;
@@ -19,7 +19,8 @@ app.set('view engine', 'pug');
 
 // Route to mainController
 app.use('/', mainController);
-app.use('/', mongoController);
+
+connectDB()
 
 //listen on port
 app.listen(port, () => {
