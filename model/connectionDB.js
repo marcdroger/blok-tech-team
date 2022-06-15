@@ -29,7 +29,7 @@ let db;
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(
+    mongoose.connect(
       url,{
         useNewUrlParser: true,
         useUnifiedTopology: true
