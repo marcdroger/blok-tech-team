@@ -31,6 +31,7 @@ const connectDB = async () => {
   try {
     mongoose.connect(
       url,{
+        dbName: databaseName,
         useNewUrlParser: true,
         useUnifiedTopology: true
       },
