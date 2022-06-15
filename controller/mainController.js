@@ -1,11 +1,20 @@
 // Controller updates model
 
 const express = require('express');
+const getStudents = require('./modules/getStudent');
 const router = express();
 
 //render index page
-router.get('/', (req, res) => {
-  res.render('index');
+router.get('/', async (req, res) => {
+  const students = await getStudents()
+  try {
+    res.render('index', {
+      student: students
+    });  
+  } catch (error) {
+    console.log(`Rendering index page failed ${error}`)
+  }
+  
 })
 
 router.get('/account', (req, res) => {
