@@ -2,3 +2,6 @@ extends layout/template.pug
 
 block content
   h1 Hello world!
+  ul
+    each val in student
+      li= val.firstname
