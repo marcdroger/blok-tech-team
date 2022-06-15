@@ -2,11 +2,13 @@
 
 const express = require('express');
 const getStudents = require('./modules/getStudent');
+const searchStudent = require('./modules/searchStudent')
 const router = express();
 
 //render index page
 router.get('/', async (req, res) => {
   const students = await getStudents()
+  console.log(students)
   try {
     res.render('index', {
       student: students
@@ -17,8 +19,16 @@ router.get('/', async (req, res) => {
   
 })
 
-router.get('/account', (req, res) => {
-  res.render('account');
+// Router param ophalen zodat je de id van een gebruiker kan krijgen.
+// deze id gebruik je in een zoekfunctie, wanneer je resultaat terug krijgt
+// laat je dit zien getStudent(res.body.urlparamorsomethinglikethis)
+router.get('/account', async (req, res) => {
+  const userId = req.query.userid
+  const student = await searchStudent(userId)
+  console.log(student)
+  res.render('account', {
+    userData: student
+  });
 })
 
 router.get('/overview', (req, res) => {

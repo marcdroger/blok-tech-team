@@ -4,4 +4,5 @@ block content
   h1 Hello world!
   ul
     each val in student
-      li= val.firstname
+      li
+        a(href=`/account?userid=${val._id}`)= val.firstname
