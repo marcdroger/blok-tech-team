@@ -8,4 +8,5 @@
 @import 'layout/typography.css';
 @import 'layout/nav.css';
 @import 'layout/footer.css';
-@import '404.css';
+@import 'layout/404.css';
+@import 'layout/account.css';
