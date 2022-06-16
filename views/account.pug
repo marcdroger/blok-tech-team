@@ -2,33 +2,34 @@ extends layout/template.pug
 
 block content
   main
-    h1 Account:
+    h1 Account: 
+    p Welcome #{userData.firstname}!
 
     form.account(action='/account' method='POST')
       section
         label(for='firstname') First name
-        input(type='text' name='firstname' placeholder='First name' required)
+        input(type='text' name='firstname' placeholder='First name' value=userData.firstname required)
 
       section
         label(for='lastname') Last name
-        input(type='text' name='lastname' placeholder='Last name' required)
+        input(type='text' name='lastname' placeholder='Last name' value=userData.lastname required)
 
       section
         label(for='email') E-mailadres (used for contact)
-        input(type='email' name='email' placeholder='E-mail' required)
+        input(type='email' name='email' placeholder='E-mail' value=userData.email required)
 
       hr
 
       section
         label(for='education') Current study
-        input(type='text' name='education' placeholder='Education' required)
+        input(type='text' name='education' placeholder='Education' value=userData.education required)
 
       section
         label(for='school') School
-        input(type='text' name='school' placeholder='School' required)
+        input(type='text' name='school' placeholder='School' value=userData.currentSchool required)
 
       section
         label(for='country') Preferred country
-        input(type='text' name='country' placeholder='country' required)
+        input(type='text' name='country' placeholder='country' value=userData.countryPreference required)
 
       input(type='submit' value='Update profile')
