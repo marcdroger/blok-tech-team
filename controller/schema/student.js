@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const Double = require('@mongoosejs/double');
 
 const studentSchema = new mongoose.Schema(
   {
@@ -9,8 +8,6 @@ const studentSchema = new mongoose.Schema(
     currentSchool: String,
     countryPreference: String,
     email: String,
-    latitude: Double,
-    longitude: Double
   }
 );
 
