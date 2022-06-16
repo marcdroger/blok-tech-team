@@ -12,11 +12,11 @@ router.get('/', async (req, res) => {
   try {
     res.render('index', {
       student: students
-    });  
+    });
   } catch (error) {
     console.log(`Rendering index page failed ${error}`)
   }
-  
+
 })
 
 // Router param ophalen zodat je de id van een gebruiker kan krijgen.
@@ -31,8 +31,8 @@ router.get('/account', async (req, res) => {
   });
 })
 
-router.get('/overview', (req, res) => {
-  res.render('overview')
+router.get('/matches', (req, res) => {
+  res.render('matches')
 })
 
 //render 404 page
