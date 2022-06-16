@@ -42,3 +42,11 @@ als dat gelukt is, verander de `.env.sample` naar `.env`. Daar komen de environm
 - [nodemon](https://www.npmjs.com/package/nodemon)
 - [stylelint](https://www.npmjs.com/package/stylelint)
 - [stylelint-config-recommended](https://www.npmjs.com/package/stylelint-config-recommended)
+
+
+## Authors
+
+[@marcdroger](https://github.com/marcdroger)
+[@judithkoelewijn](https://github.com/judithkoelewijn)
+[@Neinno](https://github.com/Neinno)
+[@AllyssaA](https://github.com/AllyssaA)
