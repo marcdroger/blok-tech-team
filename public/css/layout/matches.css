@@ -11,10 +11,21 @@
   background-color: var(--color-yellow);
   margin: 10px 20px 0 0;
   padding: 20px;
-  max-width: 320px;
+  width: 100%;
 }
 
 .matches p {
-  padding-top: 8px;
+  margin-top: 8px;
   text-transform: capitalize;
+}
+
+.matches a {
+  display: block;
+  margin-top: 10px;
+}
+
+@media screen and (min-width: 768px) {
+  .matches li {
+    width: 25%;
+  }
 }

@@ -31,8 +31,16 @@ router.get('/account', async (req, res) => {
   });
 })
 
-router.get('/matches', (req, res) => {
-  res.render('matches')
+router.get('/matches', async (req, res) => {
+  const students = await getStudents()
+
+  try {
+    res.render('matches', {
+      student: students
+    });
+  } catch (error) {
+    console.log(`Rendering matches page failed ${error}`)
+  }
 })
 
 //render 404 page
