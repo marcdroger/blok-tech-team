@@ -8,40 +8,4 @@
 @import 'layout/typography.css';
 @import 'layout/nav.css';
 @import 'layout/footer.css';
-
-/* 404 page */ 
-.btn {
-    background-color: var(--color-white); 
-    border: 1.5px solid var(--color-black);
-    color: var(--color-black);
-    padding: 20px 15px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 20px;
-  }
-  
-.btn:hover{
-    background-color: var(--color-yellow);
-  }
-
-.page404 {
-    display: flex;
-    flex-direction: row-reverse;
-    padding: 20px 10px;
-}
-
-.text404 h1 {
-    margin-bottom:10px;
-}
-
-.text404 p {
-    margin-bottom:40px;
-}
-
-.text404 {
-    padding: 100px 140px;
-}
-
-
-
-  
+@import '404.css';
