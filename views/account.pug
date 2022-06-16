@@ -1,4 +1,7 @@
 extends layout/template.pug
 
 block content
-  h1 Account:
+  h1 Account: #{userData.firstname}
+  ul 
+    each value in userData
+      li= value
