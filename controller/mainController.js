@@ -3,6 +3,7 @@
 const express = require('express');
 const getStudents = require('./modules/getStudent');
 const searchStudent = require('./modules/searchStudent')
+const addStudent = require('./modules/addStudent')
 const router = express();
 
 //render index page
@@ -41,6 +42,23 @@ router.get('/matches', async (req, res) => {
   } catch (error) {
     console.log(`Rendering matches page failed ${error}`)
   }
+})
+
+router.get('/add', async(req, res) => {
+  res.render("add");
+})
+
+router.post('/add', async(req, res) => {
+  const student = {
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    email: req.body.email,
+    education: req.body.education,
+    currentSchool: req.body.school,
+    countryPreference: req.body.country
+  }
+  addStudent(student);
+  res.redirect("/");
 })
 
 //render 404 page
