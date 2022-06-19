@@ -1,4 +1,4 @@
-.userSelect {
+.userselect {
   section {
     max-width: 500px;
   }
@@ -22,12 +22,12 @@
   p {
     &:nth-last-of-type(2) {
       border-bottom: 1px solid $black;
-      padding-bottom: .5em;
+      padding-bottom: 0.5em;
     }
 
     &:last-of-type {
       text-align: right;
-      margin-top: .5em;
+      margin-top: 0.5em;
       text-decoration: underline;
 
       &:hover {

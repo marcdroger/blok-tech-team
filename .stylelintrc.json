@@ -1,6 +1,3 @@
 {
-  "extends": "stylelint-config-recommended",
-  "rules": {
-    "string-quotes": "single"
-  }
+  "extends": "stylelint-config-standard-scss"
 }

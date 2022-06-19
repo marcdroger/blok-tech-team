@@ -1,17 +1,17 @@
 // reset
-@import 'reset/reset.scss';
+@import "reset/reset";
 
 // variables
-@import 'variables/colors.scss';
-@import 'variables/viewports.scss';
+@import "variables/colors";
+@import "variables/viewports";
 
 // layout
-@import 'layout/typography.scss';
-@import 'layout/nav.scss';
-@import 'layout/footer.scss';
-@import 'layout/main.scss';
-@import 'layout/btn.scss';
-@import 'layout/404.scss';
-@import 'layout/account.scss';
-@import 'layout/userSelect.scss';
-@import 'layout/matches.scss';
+@import "layout/typography";
+@import "layout/nav";
+@import "layout/footer";
+@import "layout/main";
+@import "layout/btn";
+@import "layout/404";
+@import "layout/account";
+@import "layout/userselect";
+@import "layout/matches";
