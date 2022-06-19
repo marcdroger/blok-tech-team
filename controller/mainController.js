@@ -1,5 +1,5 @@
 // Controller updates model
-
+require('dotenv').config();
 const express = require('express');
 const nodemailer = require('nodemailer');
 const getStudents = require('./modules/getStudent');
@@ -62,12 +62,12 @@ router.post('/add', async(req, res) => {
   async function main() {
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
-      host: "smtp-mail.outlook.com",
+      host: process.env.MAIL_HOST,
       port: 587,
       secure: false,
       auth: {
-        user: "nigelfijnheertest@outlook.com",
-        pass: "EenErgGoedWachtwoord1!",
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASS,
       },
       tls:{
         ciphers:'SSLv3',
@@ -89,7 +89,6 @@ router.post('/add', async(req, res) => {
     });
   
     console.log("Message sent: %s", info.messageId);
-    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
   }
   
   main().catch(console.error);
