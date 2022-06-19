@@ -4,7 +4,7 @@ const postcss = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
 
-// Convert sass to minified css with autoprefix in public folder
+// Convert sass to minified css with autoprefixes in public folder
 gulp.task('styles', () => {
   const plugins = [
     autoprefixer,
@@ -17,6 +17,7 @@ gulp.task('styles', () => {
   .pipe(gulp.dest('./public/css/'));
 });
 
+// Watch if sass files changes then run styles task.
 gulp.watch('./sass/**/*.scss', gulp.series('styles'));
 
 gulp.task('default', gulp.series(['styles']));
