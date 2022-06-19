@@ -1,12 +1,19 @@
 const gulp = require('gulp');
 const sass = require('gulp-sass')(require('sass'));
-const cleanCSS = require('gulp-clean-css');
+const postcss = require('gulp-postcss');
+const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano');
 
-// Convert sass to minified css in public folder
+// Convert sass to minified css with autoprefix in public folder
 gulp.task('styles', () => {
+  const plugins = [
+    autoprefixer,
+    cssnano
+  ];
+
   return gulp.src('./sass/style.scss')
   .pipe(sass().on('error', sass.logError))
-  .pipe(cleanCSS({ compatibility: 'ie8'}))
+  .pipe(postcss(plugins))
   .pipe(gulp.dest('./public/css/'));
 })
 

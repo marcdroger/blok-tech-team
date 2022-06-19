@@ -25,11 +25,14 @@
     "pug": "^3.0.2"
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.7",
+    "cssnano": "^5.1.12",
     "eslint": "^8.17.0",
     "gulp": "^4.0.2",
-    "gulp-clean-css": "^4.3.0",
+    "gulp-postcss": "^9.0.1",
     "gulp-sass": "^5.1.0",
     "nodemon": "^2.0.16",
+    "postcss": "^8.4.14",
     "sass": "^1.52.3",
     "stylelint": "^14.8.5",
     "stylelint-config-standard-scss": "^4.0.0"
