@@ -30,6 +30,13 @@ block content
 
       section
         label(for='country') Preferred country
-        input(type='text' name='country' placeholder='country' value=userData.countryPreference required)
+        select(name='country' id='country' value=userData.countryPreference required)
+         option(value='canada') Canada
+         option(value='england') England
+         option(value='japan') Japan
+         option(value='netherlands') Netherlands
+         option(value='united states') United States
+        input(type='submit' value='Update profile')
 
-      input(type='submit' value='Update profile')
+
+      

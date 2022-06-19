@@ -38,6 +38,11 @@ main {
     margin: 1em 0;
 }
 
+select#country {
+    padding: 0.8em;
+    border-radius: 2em;
+    border: none;
+}
 
 .account section {
     display: flex;
