@@ -15,7 +15,8 @@ gulp.task('styles', () => {
   .pipe(sass().on('error', sass.logError))
   .pipe(postcss(plugins))
   .pipe(gulp.dest('./public/css/'));
-})
+});
 
+gulp.watch('./sass/*.scss', gulp.series('styles'));
 
 gulp.task('default', gulp.series(['styles']));
