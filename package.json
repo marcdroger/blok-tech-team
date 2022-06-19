@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "eslint": "^8.17.0",
+    "gulp": "^4.0.2",
     "nodemon": "^2.0.16",
     "stylelint": "^14.8.5",
     "stylelint-config-recommended": "^7.0.0"
