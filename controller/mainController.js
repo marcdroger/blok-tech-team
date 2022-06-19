@@ -1,6 +1,7 @@
 // Controller updates model
 
 const express = require('express');
+const nodemailer = require('nodemailer');
 const getStudents = require('./modules/getStudent');
 const searchStudent = require('./modules/searchStudent')
 const addStudent = require('./modules/addStudent')
@@ -57,6 +58,42 @@ router.post('/add', async(req, res) => {
     currentSchool: req.body.school,
     countryPreference: req.body.country
   }
+
+  async function main() {
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+      host: "smtp-mail.outlook.com",
+      port: 587,
+      secure: false,
+      auth: {
+        user: "nigelfijnheertest@outlook.com",
+        pass: "EenErgGoedWachtwoord1!",
+      },
+      tls:{
+        ciphers:'SSLv3',
+        rejectUnauthorized:false
+      }
+    });
+  
+    // send mail with defined transport object
+    let info = await transporter.sendMail({
+      from: '"Tech team 3" <nigelfijnheertest@outlook.com>', 
+      to: req.body.email, 
+      subject: "Welcome", 
+      text: "Your account have been created.", 
+      html: "<b>Your account details are</b><br>" + 
+      "<p>Your name: " + req.body.firstname + " " + req.body.lastname +"</p>" +
+      "<p>Your education: " + req.body.education + "</p>" +
+      "<p>Your school: " + req.body.school + "</p>" +
+      "<p>Your preferred country: " + req.body.country + "</p>", 
+    });
+  
+    console.log("Message sent: %s", info.messageId);
+    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+  }
+  
+  main().catch(console.error);
+
   addStudent(student);
   res.redirect("/");
 })
