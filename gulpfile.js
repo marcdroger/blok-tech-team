@@ -17,6 +17,6 @@ gulp.task('styles', () => {
   .pipe(gulp.dest('./public/css/'));
 });
 
-gulp.watch('./sass/*.scss', gulp.series('styles'));
+gulp.watch('./sass/**/*.scss', gulp.series('styles'));
 
 gulp.task('default', gulp.series(['styles']));
