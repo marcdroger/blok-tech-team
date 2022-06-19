@@ -1,0 +1,19 @@
+.error {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 10px;
+
+  h1 {
+    margin-bottom:10px;
+  }
+
+  p {
+    margin-bottom:40px;
+  }
+
+  img {
+    height:600px;
+    width:700px;
+  }
+}

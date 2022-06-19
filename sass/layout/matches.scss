@@ -1,0 +1,31 @@
+.matches {
+  h2 {
+    overflow-wrap: break-word;
+  }
+
+  p {
+    margin-top: 8px;
+    text-transform: capitalize;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  li {
+    background-color: $yellow;
+    margin: 10px 20px 0 0;
+    padding: 20px;
+    width: 100%;
+
+    @media screen and (min-width: $viewport-sm) {
+      width: 25%;
+    }
+  }
+
+  a {
+    display: block;
+    margin-top: 10px;
+  }
+}

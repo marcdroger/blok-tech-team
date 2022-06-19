@@ -1,0 +1,38 @@
+.userSelect {
+  section {
+    max-width: 500px;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+  }
+
+  li {
+    background-color: $yellow;
+    padding: 1em;
+    margin: 2em 0;
+  }
+
+  a {
+    text-decoration: none;
+    color: $black;
+  }
+
+  p {
+    &:nth-last-of-type(2) {
+      border-bottom: 1px solid $black;
+      padding-bottom: .5em;
+    }
+
+    &:last-of-type {
+      text-align: right;
+      margin-top: .5em;
+      text-decoration: underline;
+
+      &:hover {
+        color: $orange;
+      }
+    }
+  }
+}
