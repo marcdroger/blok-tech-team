@@ -41,6 +41,11 @@ als dat gelukt is, verander de `.env.sample` naar `.env`. Daar komen de environm
 - [nodemon](https://www.npmjs.com/package/nodemon)
 - [stylelint](https://www.npmjs.com/package/stylelint)
 - [stylelint-config-recommended](https://www.npmjs.com/package/stylelint-config-recommended)
+- [autoprefixer](https://www.npmjs.com/package/autoprefixer)
+- [postcss](https://postcss.org)
+- [gulp](https://www.npmjs.com/package/gulp)
+- [cssnano](https://cssnano.co)
+
 
 
 ## ✍🏼 Authors
