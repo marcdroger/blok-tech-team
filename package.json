@@ -39,5 +39,8 @@
     "sass": "^1.52.3",
     "stylelint": "^14.8.5",
     "stylelint-config-standard-scss": "^4.0.0"
+  },
+  "overrides": {
+    "glob-parent": ">=5.1.2"
   }
 }
