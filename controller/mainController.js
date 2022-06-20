@@ -7,6 +7,7 @@ const searchStudent = require('./modules/searchStudent')
 const addStudent = require('./modules/addStudent')
 const updateStudent = require('./modules/updateStudent')
 const router = express();
+const { body, validationResult } = require('express-validator');
 
 //render index page
 router.get('/', async (req, res) => {
@@ -49,7 +50,23 @@ router.get('/add', async(req, res) => {
   res.render("add");
 })
 
-router.post('/add', async(req, res) => {
+// express validator: checks email, invalid numbers and symbols, length of input
+router.post('/add', 
+body('email').isEmail().normalizeEmail().withMessage('Must be a valid email address, try again'),
+body('education').isLength({ min: 2, max: 60 }).withMessage('Education has a minimum of 2 characters, and a maximum of 60'),
+body('school').isLength({ min: 4, max: 60 }).withMessage('Current school has a minimum of 4 characters, and a maximum of 60'),
+
+
+ async(req, res) => { 
+  const errors = validationResult(req)
+
+  if(!errors.isEmpty()) {
+    return res.status(400).json({
+        success: false,
+        errors: errors.array()
+    });  
+
+} 
   const student = {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
@@ -94,7 +111,7 @@ router.post('/add', async(req, res) => {
   mail().catch(console.error);
 
   addStudent(student);
-  res.redirect("/");
+   res.redirect("/");
 })
 
 router.post('/update', async (req, res) => {
