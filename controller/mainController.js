@@ -5,12 +5,12 @@ const nodemailer = require('nodemailer');
 const getStudents = require('./modules/getStudent');
 const searchStudent = require('./modules/searchStudent')
 const addStudent = require('./modules/addStudent')
+const updateStudent = require('./modules/updateStudent')
 const router = express();
 
 //render index page
 router.get('/', async (req, res) => {
   const students = await getStudents()
-  console.log(students)
   try {
     res.render('index', {
       student: students
@@ -26,6 +26,7 @@ router.get('/', async (req, res) => {
 // laat je dit zien getStudent(res.body.urlparamorsomethinglikethis)
 router.get('/account', async (req, res) => {
   const userId = req.query.userid
+  // console.log('query:',req.query)
   const student = await searchStudent(userId)
   console.log(student)
   res.render('account', {
@@ -35,7 +36,6 @@ router.get('/account', async (req, res) => {
 
 router.get('/matches', async (req, res) => {
   const students = await getStudents()
-
   try {
     res.render('matches', {
       student: students
@@ -59,7 +59,7 @@ router.post('/add', async(req, res) => {
     countryPreference: req.body.country
   }
 
-  async function main() {
+  async function mail() {
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
       host: process.env.MAIL_HOST,
@@ -91,13 +91,17 @@ router.post('/add', async(req, res) => {
     console.log("Message sent: %s", info.messageId);
   }
   
-  main().catch(console.error);
+  mail().catch(console.error);
 
   addStudent(student);
   res.redirect("/");
 })
 
-//render 404 page
+router.post('/update', async (req, res) => {
+  updateStudent({_id: req.body.id}, req.body) ? res.redirect('/') : res.redirect('/404')
+});
+
+//render 404 page <-- deze verplaatst naar beneden omdat deze errors gaf (onderaan als laatste mogelijkeheid)
 router.use((req, res) => {
   res.status(404).render('404');
 })
