@@ -1,0 +1,13 @@
+.btn {
+  background-color: $white;
+  border: 1.5px solid $black;
+  color: $black;
+  padding: 20px 15px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 20px;
+
+  &:hover {
+    background-color: $yellow;
+  }
+}
