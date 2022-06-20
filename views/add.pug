@@ -15,6 +15,7 @@ block content
       section
         label(for='email') E-mailadres (used for contact)
         input(type='email' name='email' placeholder='E-mail' required)
+        p Note: We will send you a confirmation email 
 
       hr
 
@@ -28,6 +29,15 @@ block content
 
       section
         label(for='country') Preferred country
-        input(type='text' name='country' placeholder='country' required)
+        select(name='country' id='country' required)
+         option(value='canada') Canada
+         option(value='england') England
+         option(value='japan') Japan
+         option(value='netherlands') Netherlands
+         option(value='united states') United States
 
       input(type='submit' value='Create profile')
+      
+
+
+           
