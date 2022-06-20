@@ -1,8 +1,15 @@
 extends layout/template.pug
 
 block content
-  h1 Hello world!
-  ul
-    each val in student
-      li
-        a(href=`/account?userid=${val._id}`)= val.firstname
+  main
+      h1 Select your user
+      a(href=`/add`) Create new
+      ul.userselect
+        each val in student
+          section
+            a(href=`/account?userid=${val._id}`)
+              li
+                h3=val.firstname + ' ' + val.lastname
+                p=val.currentSchool
+                p=val.countryPreference
+                p Show user
