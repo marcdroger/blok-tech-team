@@ -5,12 +5,13 @@ const nodemailer = require('nodemailer');
 const getStudents = require('./modules/getStudent');
 const searchStudent = require('./modules/searchStudent')
 const addStudent = require('./modules/addStudent')
+const updateStudent = require('./modules/updateStudent')
 const router = express();
+const { body, validationResult } = require('express-validator');
 
 //render index page
 router.get('/', async (req, res) => {
   const students = await getStudents()
-  console.log(students)
   try {
     res.render('index', {
       student: students
@@ -26,6 +27,7 @@ router.get('/', async (req, res) => {
 // laat je dit zien getStudent(res.body.urlparamorsomethinglikethis)
 router.get('/account', async (req, res) => {
   const userId = req.query.userid
+  // console.log('query:',req.query)
   const student = await searchStudent(userId)
   console.log(student)
   res.render('account', {
@@ -35,7 +37,6 @@ router.get('/account', async (req, res) => {
 
 router.get('/matches', async (req, res) => {
   const students = await getStudents()
-
   try {
     res.render('matches', {
       student: students
@@ -49,7 +50,23 @@ router.get('/add', async(req, res) => {
   res.render("add");
 })
 
-router.post('/add', async(req, res) => {
+// express validator: checks email, invalid numbers and symbols, length of input
+router.post('/add', 
+body('email').isEmail().normalizeEmail().withMessage('Must be a valid email address, try again'),
+body('education').isLength({ min: 2, max: 60 }).withMessage('Education has a minimum of 2 characters, and a maximum of 60'),
+body('school').isLength({ min: 4, max: 60 }).withMessage('Current school has a minimum of 4 characters, and a maximum of 60'),
+
+
+ async(req, res) => { 
+  const errors = validationResult(req)
+
+  if(!errors.isEmpty()) {
+    return res.status(400).json({
+        success: false,
+        errors: errors.array()
+    });  
+
+} 
   const student = {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
@@ -59,7 +76,7 @@ router.post('/add', async(req, res) => {
     countryPreference: req.body.country
   }
 
-  async function main() {
+  async function mail() {
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
       host: process.env.MAIL_HOST,
@@ -91,13 +108,17 @@ router.post('/add', async(req, res) => {
     console.log("Message sent: %s", info.messageId);
   }
   
-  main().catch(console.error);
+  mail().catch(console.error);
 
   addStudent(student);
-  res.redirect("/");
+   res.redirect("/");
 })
 
-//render 404 page
+router.post('/update', async (req, res) => {
+  updateStudent({_id: req.body.id}, req.body) ? res.redirect('/') : res.redirect('/404')
+});
+
+//render 404 page <-- deze verplaatst naar beneden omdat deze errors gaf (onderaan als laatste mogelijkeheid)
 router.use((req, res) => {
   res.status(404).render('404');
 })

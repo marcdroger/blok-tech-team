@@ -5,8 +5,10 @@ block content
     h1 Account: 
     p Welcome #{userData.firstname}!
 
-    form.account(action='/account' method='POST')
+    form.account(action='/update' method='POST')
       section
+        input(type='hidden' name='id' placeholder='id' value=userData._id).accountId
+        
         label(for='firstname') First name
         input(type='text' name='firstname' placeholder='First name' value=userData.firstname required)
 
@@ -30,13 +32,11 @@ block content
 
       section
         label(for='country') Preferred country
-        select(name='country' id='country' value=userData.countryPreference required)
-         option(value='canada') Canada
-         option(value='england') England
-         option(value='japan') Japan
-         option(value='netherlands') Netherlands
-         option(value='united states') United States
-        input(type='submit' value='Update profile')
-
-
-      
+        select(name='countryPreference' id='country' value=userData.countryPreference required)
+         option(value=userData.countryPreference selected disabled) #{userData.countryPreference}
+         option(value='Canada') Canada
+         option(value='England') England
+         option(value='Japan') Japan
+         option(value='Netherlands') Netherlands
+         option(value='United states') United States
+      input(type='submit' value='Update profile')
