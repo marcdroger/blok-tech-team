@@ -53,8 +53,8 @@ router.get('/add', async(req, res) => {
 // express validator: checks email, invalid numbers and symbols, length of input
 router.post('/add', 
 body('email').isEmail().normalizeEmail().withMessage('Must be a valid email address, try again'),
-body('education').isLength({ min: 2, max: 20 }).withMessage('Education has a minimum of 2 characters, and a maximum of 20'),
-body('school').isLength({ min: 4, max: 20 }).withMessage('Current school has a minimum of 4 characters, and a maximum of 20'),
+body('education').isLength({ min: 2, max: 60 }).withMessage('Education has a minimum of 2 characters, and a maximum of 60'),
+body('school').isLength({ min: 4, max: 60 }).withMessage('Current school has a minimum of 4 characters, and a maximum of 60'),
 
 
  async(req, res) => { 
@@ -65,13 +65,6 @@ body('school').isLength({ min: 4, max: 20 }).withMessage('Current school has a m
         success: false,
         errors: errors.array()
     });  
-
-    /*
-    if (!errors.isEmpty()) { 
-      const alert = errors.array()
-      res.render('add', {
-        alert: alert
-      }) */ 
 
 } 
   const student = {
