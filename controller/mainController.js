@@ -9,14 +9,13 @@ const updateStudent = require('./modules/updateStudent')
 const router = express();
 const { body, validationResult } = require('express-validator');
 
+let hideNav;
+
 //render index page
 router.get('/', async (req, res) => {
   const students = await getStudents();
 
-  //this is a fix for hiding the nav on the index page.
-  //in the template it checks if the body is an index page and if true
-  //it applies a class of index which can be used for css styling.
-  let hideNav = true;
+  hideNav = true;
 
   try {
     res.render('index', {
@@ -53,7 +52,9 @@ router.get('/matches', async (req, res) => {
 })
 
 router.get('/add', async(req, res) => {
-  res.render("add");
+  hideNav = true;
+
+  res.render("add", { hideNav });
 })
 
 // express validator: checks email, invalid numbers and symbols, length of input
