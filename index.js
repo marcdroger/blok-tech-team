@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 
+const cookieParser = require("cookie-parser");
+const sessions = require('express-sessions');
+
 const mainController = require('./controller/mainController');
 const connectDB = require('./model/connectionDB');
 
@@ -19,6 +22,15 @@ app.set('view engine', 'pug');
 
 // Route to mainController
 app.use('/', mainController);
+
+app.use(sessions({
+  secret: "NotSoSecret",
+  saveUnitialized: true,
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24
+  },
+  resave: false
+}));
 
 connectDB()
 

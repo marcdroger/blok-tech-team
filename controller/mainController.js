@@ -1,8 +1,6 @@
 // Controller updates model
 require('dotenv').config();
 const express = require('express');
-const cookieParser = require("cookie-parser");
-const sessions = require('express-sessions');
 const nodemailer = require('nodemailer');
 const getStudents = require('./modules/getStudent');
 const searchStudent = require('./modules/searchStudent')
