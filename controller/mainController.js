@@ -1,5 +1,6 @@
 // Controller updates model
 require('dotenv').config();
+
 const express = require('express');
 const sessions = require('express-session');
 const nodemailer = require('nodemailer');
@@ -10,28 +11,27 @@ const updateStudent = require('./modules/updateStudent')
 const router = express();
 const { body, validationResult } = require('express-validator');
 
+let session;
+
 router.use(sessions({
-  secret: "NotSoSecret",
-  saveUnitialized: true,
+  secret: process.env.SESSION_SECRET,
+  saveUninitialized: true,
+  resave: false,
   cookie: {
     maxAge: 1000 * 60 * 60 * 24
   },
-  resave: false
 }));
-
-var session;
 
 //render index page
 router.get('/', async (req, res) => {
   const students = await getStudents()
-  if (session.userid){
-    try {
-      res.render('index', {
-        student: students
-      });
-    } catch (error) {
-      console.log(`Rendering index page failed ${error}`)
-    }
+
+  try {
+    res.render('index', {
+      student: students
+    });
+  } catch (error) {
+    console.log(`Rendering index page failed ${error}`)
   }
 })
 
@@ -67,22 +67,22 @@ router.get('/add', async(req, res) => {
 })
 
 // express validator: checks email, invalid numbers and symbols, length of input
-router.post('/add', 
+router.post('/add',
 body('email').isEmail().normalizeEmail().withMessage('Must be a valid email address, try again'),
 body('education').isLength({ min: 2, max: 60 }).withMessage('Education has a minimum of 2 characters, and a maximum of 60'),
 body('school').isLength({ min: 4, max: 60 }).withMessage('Current school has a minimum of 4 characters, and a maximum of 60'),
 
 
- async(req, res) => { 
+ async(req, res) => {
   const errors = validationResult(req)
 
   if(!errors.isEmpty()) {
     return res.status(400).json({
         success: false,
         errors: errors.array()
-    });  
+    });
 
-} 
+}
   const student = {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
@@ -107,23 +107,23 @@ body('school').isLength({ min: 4, max: 60 }).withMessage('Current school has a m
         rejectUnauthorized:false
       }
     });
-  
+
     // send mail with defined transport object
     let info = await transporter.sendMail({
-      from: '"Tech team 3" <nigelfijnheertest@outlook.com>', 
-      to: req.body.email, 
-      subject: "Welcome", 
-      text: "Your account have been created.", 
-      html: "<b>Your account details are</b><br>" + 
+      from: '"Tech team 3" <nigelfijnheertest@outlook.com>',
+      to: req.body.email,
+      subject: "Welcome",
+      text: "Your account have been created.",
+      html: "<b>Your account details are</b><br>" +
       "<p>Your name: " + req.body.firstname + " " + req.body.lastname +"</p>" +
       "<p>Your education: " + req.body.education + "</p>" +
       "<p>Your school: " + req.body.school + "</p>" +
-      "<p>Your preferred country: " + req.body.country + "</p>", 
+      "<p>Your preferred country: " + req.body.country + "</p>",
     });
-  
+
     console.log("Message sent: %s", info.messageId);
   }
-  
+
   mail().catch(console.error);
 
   addStudent(student);
