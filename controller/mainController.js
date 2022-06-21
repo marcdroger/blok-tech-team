@@ -11,6 +11,7 @@ const updateStudent = require('./modules/updateStudent')
 const router = express();
 const { body, validationResult } = require('express-validator');
 
+let userId;
 let session;
 
 router.use(sessions({
@@ -26,9 +27,8 @@ router.use(sessions({
 router.get('/', async (req, res) => {
   const students = await getStudents()
 
-  // if(session.userId) {
-  //   req.session.destroy();
-  // }
+  //if user clicks on logo then destroy session
+  req.session.destroy();
 
   try {
     res.render('index', {
@@ -40,7 +40,7 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/userselect', (req, res) => {
-  const userId = req.body.userid;
+  userId = req.body.userid;
 
   if(userId) {
     session = req.session;
@@ -53,15 +53,9 @@ router.post('/userselect', (req, res) => {
   }
 });
 
-// Router param ophalen zodat je de id van een gebruiker kan krijgen.
-// deze id gebruik je in een zoekfunctie, wanneer je resultaat terug krijgt
-// laat je dit zien getStudent(res.body.urlparamorsomethinglikethis)
 router.get('/account', async (req, res) => {
-  const userId = req.query.userid
-  session = req.session;
-  session.userid = userId
-  console.log(req.session)
-  // console.log('query:',req.query)
+  userId = session.userid;
+
   const student = await searchStudent(userId)
   console.log(student)
   res.render('account', {
@@ -149,7 +143,7 @@ body('school').isLength({ min: 4, max: 60 }).withMessage('Current school has a m
 })
 
 router.post('/update', async (req, res) => {
-  updateStudent({_id: req.body.id}, req.body) ? res.redirect('/') : res.redirect('/404')
+  updateStudent({_id: req.body.id}, req.body) ? res.redirect('/account') : res.redirect('/404')
 });
 
 //render 404 page <-- deze verplaatst naar beneden omdat deze errors gaf (onderaan als laatste mogelijkeheid)
