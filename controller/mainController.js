@@ -27,17 +27,12 @@ router.get('/', async (req, res) => {
   session = req.session;
   if (session.userid){
     try {
-      const student = await searchStudent(userId)
-      res.render('/account', {
-        userData: student
+      res.render('index', {
+        student: students
       });
     } catch (error) {
       console.log(`Rendering index page failed ${error}`)
     }
-  } else {
-    res.render('index', {
-      student: students
-    });
   }
 })
 
@@ -47,7 +42,7 @@ router.get('/', async (req, res) => {
 router.get('/account', async (req, res) => {
   const userId = req.query.userid
   session = req.session;
-  session.userid=userId
+  session.userid = userId
   console.log(req.session)
   // console.log('query:',req.query)
   const student = await searchStudent(userId)
