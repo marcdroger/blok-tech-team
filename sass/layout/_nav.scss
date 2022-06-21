@@ -7,6 +7,11 @@ nav {
   justify-content: space-between;
   border-bottom: 1px solid $black;
 
+  //Fix for hiding nav on index page.
+  body.index & {
+    display: none;
+  }
+
   img {
     width: 48px;
   }
