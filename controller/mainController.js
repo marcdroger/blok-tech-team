@@ -1,6 +1,7 @@
 // Controller updates model
 require('dotenv').config();
 const express = require('express');
+const sessions = require('express-session');
 const nodemailer = require('nodemailer');
 const getStudents = require('./modules/getStudent');
 const searchStudent = require('./modules/searchStudent')
@@ -9,17 +10,30 @@ const updateStudent = require('./modules/updateStudent')
 const router = express();
 const { body, validationResult } = require('express-validator');
 
+router.use(sessions({
+  secret: "NotSoSecret",
+  saveUnitialized: true,
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24
+  },
+  resave: false
+}));
+
+var session;
+
 //render index page
 router.get('/', async (req, res) => {
   const students = await getStudents()
-  try {
-    res.render('index', {
-      student: students
-    });
-  } catch (error) {
-    console.log(`Rendering index page failed ${error}`)
+  session = req.session;
+  if (session.userid){
+    try {
+      res.render('index', {
+        student: students
+      });
+    } catch (error) {
+      console.log(`Rendering index page failed ${error}`)
+    }
   }
-
 })
 
 // Router param ophalen zodat je de id van een gebruiker kan krijgen.
@@ -27,6 +41,8 @@ router.get('/', async (req, res) => {
 // laat je dit zien getStudent(res.body.urlparamorsomethinglikethis)
 router.get('/account', async (req, res) => {
   const userId = req.query.userid
+  session = req.session;
+  console.log(req.session)
   // console.log('query:',req.query)
   const student = await searchStudent(userId)
   console.log(student)
