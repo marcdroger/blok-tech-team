@@ -16,12 +16,12 @@ router.get('/', async (req, res) => {
   //this is a fix for hiding the nav on the index page.
   //in the template it checks if the body is an index page and if true
   //it applies a class of index which can be used for css styling.
-  const fileName = 'index';
+  let hideNav = true;
 
   try {
     res.render('index', {
       student: students,
-      fileName
+      hideNav
     });
   } catch (error) {
     console.log(`Rendering index page failed ${error}`)
