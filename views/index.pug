@@ -1,15 +1,15 @@
 extends layout/template.pug
 
 block content
-  main
+  main.userselect
+    div
       h1 Select your user
       a(href=`/add`) Create new
-      ul.userselect
-        each val in student
-          section
-            a(href=`/account?userid=${val._id}`)
-              li
-                h3=val.firstname + ' ' + val.lastname
-                p=val.currentSchool
-                p=val.countryPreference
-                p Show user
+    form(action='/userselect' method='POST')
+      each val in student
+        input(type='radio' id=`user_${val._id}` name='userid' value=`${val._id}`)
+        label(for=`user_${val._id}`)
+          h3=val.firstname + ' ' + val.lastname
+          p=val.currentSchool
+          p=val.countryPreference
+    input(type='submit' value='Choose user')

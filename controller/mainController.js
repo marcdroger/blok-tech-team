@@ -26,6 +26,10 @@ router.use(sessions({
 router.get('/', async (req, res) => {
   const students = await getStudents()
 
+  // if(session.userId) {
+  //   req.session.destroy();
+  // }
+
   try {
     res.render('index', {
       student: students
