@@ -24,7 +24,6 @@ var session;
 //render index page
 router.get('/', async (req, res) => {
   const students = await getStudents()
-  session = req.session;
   if (session.userid){
     try {
       res.render('index', {
