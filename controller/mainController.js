@@ -39,6 +39,20 @@ router.get('/', async (req, res) => {
   }
 })
 
+router.post('/userselect', (req, res) => {
+  const userId = req.body.userid;
+
+  if(userId) {
+    session = req.session;
+    session.userid = userId;
+    console.log(req.session);
+
+    res.redirect('/matches');
+  } else {
+    res.redirect('/');
+  }
+});
+
 // Router param ophalen zodat je de id van een gebruiker kan krijgen.
 // deze id gebruik je in een zoekfunctie, wanneer je resultaat terug krijgt
 // laat je dit zien getStudent(res.body.urlparamorsomethinglikethis)
