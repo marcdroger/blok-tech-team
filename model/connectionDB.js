@@ -13,20 +13,6 @@ const collection = process.env.DB_COLLECTION;
 
 let db;
 
-//connect to MongoDB database
-// async function connectDB() {
-//   const client = new MongoClient(url, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//   });
-//   try {
-//     await client.connect();
-//     db = client.db(databaseName);
-//   } catch (error) {
-//     throw error;
-//   }
-// }
-
 const connectDB = async () => {
   try {
     mongoose.connect(
