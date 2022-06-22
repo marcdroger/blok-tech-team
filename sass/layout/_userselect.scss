@@ -1,6 +1,16 @@
 .userselect {
   div {
     margin-bottom: 30px;
+
+    a {
+      text-decoration: none;
+      color: $orange;
+      font-weight: bold;
+
+      &:hover {
+        color: $black;
+      }
+    }
   }
 
   form {
@@ -14,7 +24,7 @@
     display: none;
 
     &:checked + label {
-      background-color: darken($yellow, 30%);
+      background-color: $pink;
     }
   }
 
@@ -28,11 +38,11 @@
     margin-bottom: 20px;
 
     &:hover {
-      background-color: darken($yellow, 10%);
+      background-color: $darkyellow;
     }
 
     @media screen and (min-width: $viewport-sm) {
-      margin: 20px 20px 20px 0;
+      margin: 20px 20px 0 0;
       width: 25%;
     }
   }
@@ -50,5 +60,10 @@
       background-color: $black;
       color: $white;
     }
+  }
+
+  h2,
+  p {
+    text-transform: capitalize;
   }
 }

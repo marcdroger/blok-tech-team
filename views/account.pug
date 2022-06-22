@@ -1,12 +1,12 @@
 extends layout/template.pug
 
 block content
-  main
-    h1 Account: 
-    form.account(action='/update' method='POST')
+  main.account
+    h1 Account
+    form(action='/update' method='POST')
       section
-        input(type='hidden' name='id' placeholder='id' value=userData._id).accountId
-        
+        input(type='hidden' name='id' placeholder='id' value=userData._id).accountid
+
         label(for='firstname') First name
         input(type='text' name='firstname' placeholder='First name' value=userData.firstname required)
 
@@ -31,10 +31,10 @@ block content
       section
         label(for='country') Preferred country
         select(name='countryPreference' id='country' value=userData.countryPreference required)
-         option(value=userData.countryPreference selected disabled) #{userData.countryPreference}
-         option(value='Canada') Canada
-         option(value='England') England
-         option(value='Japan') Japan
-         option(value='Netherlands') Netherlands
-         option(value='United states') United States
+          option(value=userData.countryPreference selected disabled) #{userData.countryPreference}
+          option(value='Canada') Canada
+          option(value='England') England
+          option(value='Japan') Japan
+          option(value='Netherlands') Netherlands
+          option(value='United states') United States
       input(type='submit' value='Update profile')

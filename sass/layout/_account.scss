@@ -1,14 +1,17 @@
 .account {
-  display: grid;
-  background-color: $yellow;
-  grid-template-columns: 1fr 1fr;
-  padding: 2.5em;
-  grid-gap: 1em;
+  h1 {
+    margin-bottom: 15px;
+  }
 
-  @media screen and (min-width: $viewport-sm) {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  form {
+    background-color: $yellow;
+    padding: 2.5em;
+
+    @media screen and (min-width: $viewport-sm) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
   }
 
   section {
@@ -20,19 +23,13 @@
       width: 100%;
     }
 
-    &:nth-of-type(1),
-    &:nth-of-type(3),
-    &:nth-of-type(4) {
-      grid-column: 1;
-    }
-
-    &:nth-of-type(2),
-    &:nth-of-type(5) {
-      grid-column: 2;
+    p {
+      font-style: italic;
+      margin-top: 8px;
     }
   }
 
-  .accountId {
+  .accountid {
     width: 0;
     height: 0;
     visibility: hidden;
@@ -40,13 +37,17 @@
   }
 
   label {
-    margin-bottom: 0.5em;
+    margin: 0.5em 0;
   }
 
   hr {
-    grid-column: span 2;
-    width: 75%;
-    margin: 2.5em 0;
+    margin: 1.5em 0;
+    width: 100%;
+
+    @media screen and (min-width: $viewport-sm) {
+      margin: 2.5em 0;
+      width: 75%;
+    }
   }
 
   input[type="text"],
@@ -58,17 +59,21 @@
   }
 
   input[type="submit"] {
-    grid-column: 1;
+    cursor: pointer;
     border: 2px solid $black;
     height: 2.5em;
     background-color: transparent;
-    width: 300px;
-    margin: 1em 0;
+    width: 100%;
+    margin: 2em 0 1em;
     transition: all 0.1s ease-in-out;
 
     &:hover {
       background-color: $black;
       color: $white;
+    }
+
+    @media screen and (min-width: $viewport-sm) {
+      width: 300px;
     }
   }
 
@@ -76,5 +81,12 @@
     padding: 0.8em;
     border-radius: 2em;
     border: none;
+  }
+
+  a {
+    color: $orange;
+    display: block;
+    font-weight: bold;
+    margin-top: 20px;
   }
 }

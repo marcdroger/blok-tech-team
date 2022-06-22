@@ -4,22 +4,22 @@ const { body, validationResult } = require('express-validator');
 const nodemailer = require('nodemailer');
 const addStudent = require('../controller/modules/addStudent')
 
-
 addUser.get('/add', async(req, res) => {
-    hideNav = true;
-  
-    res.render("add", { hideNav });
-  })
+  //hide nav on this page
+  hideNav = true;
+
+  res.render("add", { hideNav });
+})
 
 addUser.post('/add', async (req, res) => {
-    const errors = validationResult(req)
+  const errors = validationResult(req)
 
-    if(!errors.isEmpty()) {
-      return res.status(400).json({
-          success: false,
-          errors: errors.array()
-      });
-    }
+  if(!errors.isEmpty()) {
+    const alert = errors.array()
+    res.render('add', {
+      alert
+    })
+  } else {
     const student = {
       firstname: req.body.firstname,
       lastname: req.body.lastname,
@@ -66,6 +66,7 @@ addUser.post('/add', async (req, res) => {
 
     addStudent(student);
     res.redirect("/");
+  }
 })
 
 module.exports = addUser

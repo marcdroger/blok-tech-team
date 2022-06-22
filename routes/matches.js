@@ -5,7 +5,9 @@ const searchStudent = require('../controller/modules/searchStudent')
 
 matches.get('/matches', async (req, res) => {
   userId = session.userid;
+
   const students = await getStudents()
+
   //get student with id from session
   const mainUser = await searchStudent(userId);
 
@@ -16,7 +18,7 @@ matches.get('/matches', async (req, res) => {
     student: updatedList, mainUser
     });
   } catch (error) {
-      console.log(`Rendering matches page failed ${error}`)
+    console.log(`Rendering matches page failed ${error}`)
   }
 })
 

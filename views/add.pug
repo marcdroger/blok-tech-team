@@ -1,13 +1,13 @@
 extends layout/template.pug
 
 block content
-  main
+  main.account
     h1 Create account
-      if alert != undefined 
-       each error in alert
-        h2.message= `${error.msg}`
+      if alert != undefined
+        each error in alert
+          h2.message= `${error.msg}`
 
-    form.account(action='/add' method='POST')
+    form(action='/add' method='POST')
       section
         label(for='firstname') First name
         input(type='text' name='firstname' placeholder='First name' required)
@@ -19,7 +19,7 @@ block content
       section
         label(for='email') E-mailadres (used for contact)
         input(type='email' name='email' placeholder='E-mail' required)
-        p Note: We will send you a confirmation email 
+        p Note: We will send you a confirmation email
 
       hr
 
@@ -34,11 +34,12 @@ block content
       section
         label(for='country') Preferred country
         select(name='country' id='country' required)
-         option(value='canada') Canada
-         option(value='england') England
-         option(value='japan') Japan
-         option(value='netherlands') Netherlands
-         option(value='united states') United States
+          option(value='canada') Canada
+          option(value='england') England
+          option(value='japan') Japan
+          option(value='netherlands') Netherlands
+          option(value='united states') United States
 
       input(type='submit' value='Create profile')
-      
+
+    a(href='/') Back to users overview
