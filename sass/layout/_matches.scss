@@ -23,16 +23,15 @@
       width: 25%;
     }
   }
-
+  
   a {
     display: block;
     margin-top: 10px;
     text-decoration: none;
     color: $orange;
     font-weight: bold;
-  }
-
-  a:hover {
-    color: $black;
+    &:hover {
+      color: $black;
+    }
   }
 }
