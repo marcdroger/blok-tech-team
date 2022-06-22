@@ -11,6 +11,7 @@ const updateStudent = require('./modules/updateStudent')
 const router = express();
 const { body, validationResult } = require('express-validator');
 
+let hideNav;
 let userId;
 let session;
 
@@ -27,12 +28,15 @@ router.use(sessions({
 router.get('/', async (req, res) => {
   const students = await getStudents()
 
+  hideNav = true;
+
   //if user clicks on logo then destroy session
   req.session.destroy();
 
   try {
     res.render('index', {
-      student: students
+      student: students,
+      hideNav
     });
   } catch (error) {
     console.log(`Rendering index page failed ${error}`)
@@ -75,7 +79,9 @@ router.get('/matches', async (req, res) => {
 })
 
 router.get('/add', async(req, res) => {
-  res.render("add");
+  hideNav = true;
+
+  res.render("add", { hideNav });
 })
 
 // express validator: checks email, invalid numbers and symbols, length of input
@@ -85,63 +91,62 @@ body('education').isLength({ min: 2, max: 60 }).withMessage('Education has a min
 body('school').isLength({ min: 4, max: 60 }).withMessage('Current school has a minimum of 4 characters, and a maximum of 60'),
 
 
- async(req, res) => {
-  const errors = validationResult(req)
+  async(req, res) => {
+    const errors = validationResult(req)
 
-  if(!errors.isEmpty()) {
-    return res.status(400).json({
-        success: false,
-        errors: errors.array()
-    });
+    if(!errors.isEmpty()) {
+      return res.status(400).json({
+          success: false,
+          errors: errors.array()
+      });
+    }
+    const student = {
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      email: req.body.email,
+      education: req.body.education,
+      currentSchool: req.body.school,
+      countryPreference: req.body.country
+    }
 
-}
-  const student = {
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    email: req.body.email,
-    education: req.body.education,
-    currentSchool: req.body.school,
-    countryPreference: req.body.country
-  }
+    async function mail() {
+      // create reusable transporter object using the default SMTP transport
+      let transporter = nodemailer.createTransport({
+        host: process.env.MAIL_HOST,
+        port: 587,
+        secure: false,
+        requireTLS:true,
+        auth: {
+          user: process.env.MAIL_USER,
+          pass: process.env.MAIL_PASS,
+        },
+        tls:{
+          ciphers:'SSLv3',
+          rejectUnauthorized:false
+        }
+      });
 
-  async function mail() {
-    // create reusable transporter object using the default SMTP transport
-    let transporter = nodemailer.createTransport({
-      host: process.env.MAIL_HOST,
-      port: 587,
-      secure: false,
-      requireTLS:true,
-      auth: {
-        user: process.env.MAIL_USER,
-        pass: process.env.MAIL_PASS,
-      },
-      tls:{
-        ciphers:'SSLv3',
-        rejectUnauthorized:false
-      }
-    });
+      // send mail with defined transport object
+      let info = await transporter.sendMail({
+        from: '"Tech team 3" <nigelfijnheertest@outlook.com>',
+        to: req.body.email,
+        subject: "Welcome",
+        text: "Your account have been created.",
+        html: "<b>Your account details are</b><br>" +
+        "<p>Your name: " + req.body.firstname + " " + req.body.lastname +"</p>" +
+        "<p>Your education: " + req.body.education + "</p>" +
+        "<p>Your school: " + req.body.school + "</p>" +
+        "<p>Your preferred country: " + req.body.country + "</p>",
+      });
 
-    // send mail with defined transport object
-    let info = await transporter.sendMail({
-      from: '"Tech team 3" <nigelfijnheertest@outlook.com>',
-      to: req.body.email,
-      subject: "Welcome",
-      text: "Your account have been created.",
-      html: "<b>Your account details are</b><br>" +
-      "<p>Your name: " + req.body.firstname + " " + req.body.lastname +"</p>" +
-      "<p>Your education: " + req.body.education + "</p>" +
-      "<p>Your school: " + req.body.school + "</p>" +
-      "<p>Your preferred country: " + req.body.country + "</p>",
-    });
+      console.log("Message sent: %s", info.messageId);
+    }
 
-    console.log("Message sent: %s", info.messageId);
-  }
+    mail().catch(console.error);
 
-  mail().catch(console.error);
-
-  addStudent(student);
-   res.redirect("/");
-})
+    addStudent(student);
+    res.redirect("/");
+  });
 
 router.post('/update', async (req, res) => {
   updateStudent({_id: req.body.id}, req.body) ? res.redirect('/account') : res.redirect('/404')
