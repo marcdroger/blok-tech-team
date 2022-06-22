@@ -8,13 +8,15 @@ const getStudents = require('./modules/getStudent');
 const searchStudent = require('./modules/searchStudent')
 const addStudent = require('./modules/addStudent')
 const updateStudent = require('./modules/updateStudent')
-const router = express();
 const { body, validationResult } = require('express-validator');
+
+const router = express();
 
 let hideNav;
 let userId;
 let session;
 
+//create session with secret from environment variable
 router.use(sessions({
   secret: process.env.SESSION_SECRET,
   saveUninitialized: true,
@@ -28,6 +30,7 @@ router.use(sessions({
 router.get('/', async (req, res) => {
   const students = await getStudents()
 
+  //hide the nav on this page
   hideNav = true;
 
   //if user clicks on logo then destroy session
@@ -43,6 +46,7 @@ router.get('/', async (req, res) => {
   }
 })
 
+//get userid from index form and store in session
 router.post('/userselect', (req, res) => {
   userId = req.body.userid;
 
@@ -56,11 +60,11 @@ router.post('/userselect', (req, res) => {
   }
 });
 
+//get userid from account and get student data from DB using the id
 router.get('/account', async (req, res) => {
   userId = session.userid;
 
   const student = await searchStudent(userId)
-  console.log(student)
   res.render('account', {
     userData: student
   });
@@ -76,6 +80,7 @@ router.get('/matches', async (req, res) => {
   const mainUser = await searchStudent(userId);
 
   //Create new list which filters out the student by the id from the session.
+  //this prevents the selected user showing up in the matches
   const updatedList = students.filter(item => item._id != userId);
 
   try {
@@ -88,36 +93,36 @@ router.get('/matches', async (req, res) => {
 })
 
 router.get('/add', async(req, res) => {
+  //hide the nav on this page
   hideNav = true;
 
   res.render("add", { hideNav });
 })
 
-// express validator: checks email, invalid numbers and symbols, length of input
-router.post('/add', 
-body('email').isEmail().normalizeEmail().withMessage('Must be a valid email address, please try again'),
-body('education').isLength({ min: 2, max: 60 }).withMessage('Education has a minimum of 2 characters, and a maximum of 60'),
-body('school').isLength({ min: 4, max: 60 }).withMessage('Current school has a minimum of 4 characters, and a maximum of 60'),
+// express validator: checks email, invalid numbers and symbols, length of input after account add submit
+router.post('/add',
+  body('email').isEmail().normalizeEmail().withMessage('Must be a valid email address, please try again'),
+  body('education').isLength({ min: 2, max: 60 }).withMessage('Education has a minimum of 2 characters, and a maximum of 60'),
+  body('school').isLength({ min: 4, max: 60 }).withMessage('Current school has a minimum of 4 characters, and a maximum of 60'),
 
+  async(req, res) => {
+    const errors = validationResult(req)
 
- async(req, res) => { 
-  const errors = validationResult(req)
+    if(!errors.isEmpty()) {
+      const alert = errors.array()
+      res.render('add', {
+        alert
+      })
 
-  if(!errors.isEmpty()) {
-    const alert = errors.array()
-    res.render('add', {
-      alert
-    }) 
-
-} else {
-  const student = {
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    email: req.body.email,
-    education: req.body.education,
-    currentSchool: req.body.school,
-    countryPreference: req.body.country
-  }
+    } else {
+      const student = {
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        education: req.body.education,
+        currentSchool: req.body.school,
+        countryPreference: req.body.country
+    }
 
     async function mail() {
       // create reusable transporter object using the default SMTP transport
@@ -156,15 +161,15 @@ body('school').isLength({ min: 4, max: 60 }).withMessage('Current school has a m
 
     addStudent(student);
     res.redirect("/");
-  }});
+}});
 
-// juiste router.post
 
+//update user based on id submitted
 router.post('/update', async (req, res) => {
   updateStudent({_id: req.body.id}, req.body) ? res.redirect('/account') : res.redirect('/404')
-}); 
+});
 
-//render 404 page <-- deze verplaatst naar beneden omdat deze errors gaf (onderaan als laatste mogelijkeheid)
+//render 404 page !Keep as last route!
 router.use((req, res) => {
   res.status(404).render('404');
 })

@@ -13,5 +13,4 @@ async function updateStudent(userId, newData) {
   }
 }
 
-
 module.exports = updateStudent
