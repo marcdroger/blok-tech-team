@@ -3,6 +3,10 @@ extends layout/template.pug
 block content
   main
     h1 Create account
+      if alert != undefined 
+       each error in alert
+        h2.message= `${error.msg}`
+
     form.account(action='/add' method='POST')
       section
         label(for='firstname') First name
@@ -38,6 +42,3 @@ block content
 
       input(type='submit' value='Create profile')
       
-
-
-           
