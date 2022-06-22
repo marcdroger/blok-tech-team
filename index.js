@@ -30,7 +30,7 @@ app.set('view engine', 'pug');
 app
   .get('/', index)
   .post('/userselect', index) 
-  .get('/matches', matches)
+  .get('/matches', index)
   .get('/account', index)
   .get('/add', addUser)
   .post('/add',
