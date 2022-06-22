@@ -5,10 +5,7 @@ const nodemailer = require('nodemailer');
 const addStudent = require('../controller/modules/addStudent')
 
 addUser.get('/add', async(req, res) => {
-  //hide nav on this page
-  hideNav = true;
-
-  res.render("add", { hideNav });
+  res.render("add");
 })
 
 addUser.post('/add', async (req, res) => {

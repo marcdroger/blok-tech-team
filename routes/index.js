@@ -4,7 +4,6 @@ const sessions = require('express-session');
 const getStudents = require('../controller/modules/getStudent');
 const searchStudent = require('../controller/modules/searchStudent');
 
-let hideNav;
 let session;
 let userId;
 
@@ -21,17 +20,12 @@ index.use(sessions({
 index.get('/', async (req, res) => {
   const students = await getStudents()
 
-  //hide nav on this page
-  hideNav = true;
-
   //if user clicks on logo then destroy session
   req.session.destroy();
 
   try {
     res.render('index', {
-      student: students,
-      hideNav
-    });
+      student: students });
     } catch (error) {
       console.log(`Rendering index page failed ${error}`)
     }

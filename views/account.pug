@@ -1,6 +1,8 @@
 extends layout/template.pug
 
 block content
+  include layout/nav.pug
+
   main.account
     h1 Account
     form(action='/update' method='POST')
