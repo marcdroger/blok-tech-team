@@ -5,7 +5,7 @@ const student = mongoose.model('students', studentSchema)
 async function updateStudent(userId, newData) {
   try {
     await student.findOneAndUpdate(userId, newData)
-    console.log('userId updated')
+    console.log('User updated')
     return true
   } catch (error) {
     console.warn('updating user failed',error)
