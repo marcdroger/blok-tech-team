@@ -1,6 +1,7 @@
 .matches {
   h2 {
     overflow-wrap: break-word;
+    text-transform: capitalize;
   }
 
   p {
@@ -23,13 +24,14 @@
       width: 25%;
     }
   }
-  
+
   a {
     display: block;
     margin-top: 10px;
     text-decoration: none;
     color: $orange;
     font-weight: bold;
+
     &:hover {
       color: $black;
     }

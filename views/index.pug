@@ -4,7 +4,7 @@ block content
   main.userselect
     div
       h1 Select your user
-      a.newUser(href=`/add`) Create a new user >
+      a(href=`/add`) Create a new user >
     form(action='/userselect' method='POST')
       each val in student
         input(type='radio' id=`user_${val._id}` name='userid' value=`${val._id}`)
