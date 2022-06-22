@@ -1,15 +1,14 @@
 extends layout/template.pug
 
 block content
-
-  //-FIXME: verberg huidige gebruiker
   main.matches
     h1 Matches
     ul
       each val in student
-        li
-          h2= `${val.firstname} ${val.lastname}`
-          p= `Preference: ${val.countryPreference}`
-          p= `Studies: ${val.education}`
-          p= `School: ${val.currentSchool}`
-          a(href='mailto:' + val.email) Email
+        if mainUser.countryPreference == val.countryPreference
+          li
+            h2= `${val.firstname} ${val.lastname}`
+            p= `Preference: ${val.countryPreference}`
+            p= `Studies: ${val.education}`
+            p= `School: ${val.currentSchool}`
+            a(href='mailto:' + val.email) Email
