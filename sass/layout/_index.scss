@@ -1,0 +1,8 @@
+a.newUser {
+    text-decoration: none;
+    color: $orange;
+    font-weight: bold;
+    &:hover {
+      color: $black;
+    }
+  }
