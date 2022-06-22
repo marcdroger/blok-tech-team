@@ -9,7 +9,7 @@ block content
       each val in student
         input(type='radio' id=`user_${val._id}` name='userid' value=`${val._id}`)
         label(for=`user_${val._id}`)
-          h3=val.firstname + ' ' + val.lastname
+          h2=val.firstname + ' ' + val.lastname
           p=val.currentSchool
           p=val.countryPreference
       input(type='submit' value='Choose user')
