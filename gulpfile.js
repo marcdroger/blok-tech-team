@@ -18,6 +18,7 @@ gulp.task('styles', () => {
   .pipe(gulp.dest('./public/css/'));
 });
 
+//compress javascript
 gulp.task('compress', function () {
   return gulp.src('./scripts/*.js')
   .pipe(uglify())
