@@ -3,8 +3,6 @@ extends layout/template.pug
 block content
   main
     h1 Account: 
-    p Welcome #{userData.firstname}!
-
     form.account(action='/update' method='POST')
       section
         input(type='hidden' name='id' placeholder='id' value=userData._id).accountId

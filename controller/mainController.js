@@ -85,29 +85,30 @@ router.get('/add', async(req, res) => {
 })
 
 // express validator: checks email, invalid numbers and symbols, length of input
-router.post('/add',
-body('email').isEmail().normalizeEmail().withMessage('Must be a valid email address, try again'),
+router.post('/add', 
+body('email').isEmail().normalizeEmail().withMessage('Must be a valid email address, please try again'),
 body('education').isLength({ min: 2, max: 60 }).withMessage('Education has a minimum of 2 characters, and a maximum of 60'),
 body('school').isLength({ min: 4, max: 60 }).withMessage('Current school has a minimum of 4 characters, and a maximum of 60'),
 
 
-  async(req, res) => {
-    const errors = validationResult(req)
+ async(req, res) => { 
+  const errors = validationResult(req)
 
-    if(!errors.isEmpty()) {
-      return res.status(400).json({
-          success: false,
-          errors: errors.array()
-      });
-    }
-    const student = {
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
-      email: req.body.email,
-      education: req.body.education,
-      currentSchool: req.body.school,
-      countryPreference: req.body.country
-    }
+  if(!errors.isEmpty()) {
+    const alert = errors.array()
+    res.render('add', {
+      alert
+    }) 
+
+} else {
+  const student = {
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    email: req.body.email,
+    education: req.body.education,
+    currentSchool: req.body.school,
+    countryPreference: req.body.country
+  }
 
     async function mail() {
       // create reusable transporter object using the default SMTP transport
@@ -146,16 +147,17 @@ body('school').isLength({ min: 4, max: 60 }).withMessage('Current school has a m
 
     addStudent(student);
     res.redirect("/");
-  });
+  }});
+
+// juiste router.post
 
 router.post('/update', async (req, res) => {
   updateStudent({_id: req.body.id}, req.body) ? res.redirect('/account') : res.redirect('/404')
-});
+}); 
 
 //render 404 page <-- deze verplaatst naar beneden omdat deze errors gaf (onderaan als laatste mogelijkeheid)
 router.use((req, res) => {
   res.status(404).render('404');
 })
-
 
 module.exports = router
