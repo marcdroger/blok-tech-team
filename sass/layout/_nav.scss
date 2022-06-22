@@ -5,6 +5,7 @@ nav {
   padding: 10px 50px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   border-bottom: 1px solid $black;
 
   img {
@@ -19,7 +20,14 @@ nav {
   }
 
   ul {
-    list-style: none;
-    padding-top: 30px;
+    display: flex;
+  }
+
+  a {
+    transition: color 0.1s ease-in-out;
+
+    &:hover {
+      color: $orange;
+    }
   }
 }
