@@ -115,6 +115,7 @@ body('school').isLength({ min: 4, max: 60 }).withMessage('Current school has a m
         host: process.env.MAIL_HOST,
         port: 587,
         secure: false,
+        requireTLS:true,
         auth: {
           user: process.env.MAIL_USER,
           pass: process.env.MAIL_PASS,
